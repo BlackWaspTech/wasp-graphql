@@ -18,13 +18,20 @@
  */
 
 function assertString(item, itemDescription) {
-  if (item === undefined || typeof item !== 'string') {
+  // Defensively sets the optional input to nothing if it's not a string
+  if (itemDescription && typeof itemDescription !== 'string') {
+    itemDescription = undefined;
+  }
+
+  // Throws if the item isn't a valid string
+  if (!item || typeof item !== 'string') {
     throwError();
   }
 
   return true;
 
   // ----------
+  // Generates the error object
   function throwError() {
     var expected =
       'Expected a string for the ' +

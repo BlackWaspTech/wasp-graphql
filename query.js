@@ -1,4 +1,6 @@
-var assertString = require('./_internal/assertString');
+var assertString = require('./_internal/assertString')
+var configureFetch = require('./_internal/configureFetch')
+var extendConfiguration = require('./_internal/extendConfiguration')
 
 /**
  * Confirms the given argument is a non-empty string.
@@ -20,45 +22,22 @@ var assertString = require('./_internal/assertString');
 function query(endpoint, fields, options) {
   try {
     // Validate inputs
-    assertString(endpoint, 'endpoint');
-    assertString(fields, 'fields');
+    assertString(endpoint, 'endpoint')
+    assertString(fields, 'fields')
   } catch (err) {
     // The caller is expecting a promise object
-    return Promise.reject(err);
+    return Promise.reject(err)
   }
 
   // Prepare settings for the fetch request
-  var configuration = generateConfig(fields);
+  var configuration = configureFetch(fields)
 
   // Allow the user to add additional props to fetch
   if (options) {
-    configuration = extendConfig(configuration, options);
+    configuration = extendConfiguration(configuration, options)
   }
 
-  return fetch(endpoint, configuration);
+  return fetch(endpoint, configuration)
 }
 
-// --------------------
-
-function generateConfig(fields) {
-  return {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json'
-    },
-    body: JSON.stringify({
-      query: fields
-    })
-  };
-}
-
-function extendConfig(original, extension) {
-  for (var prop in extension) {
-    original[prop] = extension[prop];
-  }
-
-  return original;
-}
-
-module.exports = query;
+module.exports = query
