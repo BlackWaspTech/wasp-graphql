@@ -11,8 +11,7 @@ describe('query.js', function() {
   });
 
   it('returns a rejection on receiving invalid input', function() {
-    expect(query()).rejects.toThrow(/a string for the endpoint/);
-    expect(query('test')).rejects.toThrow(/a string for the fields/);
+    return query('', '').catch(e => expect(e).toBeTruthy());
   });
 
   it('returns a promise on success', function() {
@@ -23,5 +22,26 @@ describe('query.js', function() {
     return query('/foo', 'bar')
       .then(res => res.json())
       .then(json => expect(json.data).toBe(42));
+  });
+
+  it('handles passing in a valid body value instead of a second argument', function() {
+    return query('validArg', '', { body: 'valid body' }).then(res =>
+      expect(res).toBeTruthy()
+    );
+  });
+
+  it('allows "preloading" a url for later use', function() {
+    var loadedQuery = query('/foo');
+
+    expect(typeof loadedQuery).toBe('function');
+    return loadedQuery('bar')
+      .then(res => res.json())
+      .then(json => expect(json.data).toBe(42));
+  });
+
+  it('returns a rejection on receiving invalid input for a preloaded query', function() {
+    var loadedQuery = query('/foo');
+
+    return loadedQuery('', '').catch(e => expect(e).toBeTruthy());
   });
 });
