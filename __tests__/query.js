@@ -11,12 +11,20 @@ describe('query.js', function() {
   });
 
   it('returns a rejection on receiving invalid input', function() {
-    expect(query()).rejects.toThrow(/a string for the endpoint/);
-    expect(query('test')).rejects.toThrow(/a string for the fields/);
+    expect(query()).rejects.toThrow(TypeError);
+    expect(query('', '')).rejects.toThrow(TypeError);
+    expect(query('OnlyOneArgument')).rejects.toThrow(TypeError);
+    expect(query('validArg', '', { body: 42 })).rejects.toThrow(TypeError);
   });
 
   it('returns a promise on success', function() {
     return query('foo', 'bar').then(res => expect(res).toBeTruthy());
+  });
+
+  it('handles passing in a valid body value instead of a second argument', function() {
+    return query('validArg', '', { body: 'valid body' }).then(res =>
+      expect(res).toBeTruthy()
+    );
   });
 
   it('calls an endpoint and returns data', function() {

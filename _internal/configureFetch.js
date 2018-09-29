@@ -2,11 +2,12 @@
  * Generates the settings necessary for a successful GraphQL request.
  *
  * @param {string} fields - The GraphQL query
+ * @param {object} [options] - The user may choose to supply the query via options instead
  *
- * @returns {string} - A parsable JSON string
+ * @returns {object} - Request object for an XmlHttpRequest
  */
 
-function configureFetch(fields) {
+function configureFetch(fields, options) {
   return {
     method: 'POST',
     headers: {
@@ -14,7 +15,7 @@ function configureFetch(fields) {
       Accept: 'application/json'
     },
     body: JSON.stringify({
-      query: fields
+      query: fields || options.body
     })
   };
 }
