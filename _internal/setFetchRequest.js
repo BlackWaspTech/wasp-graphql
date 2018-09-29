@@ -6,17 +6,22 @@
  * @returns {string} - A parsable JSON string
  */
 
-function configureFetch(fields) {
-  return {
+function setFetchRequest(fields) {
+  var baseRequest = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json'
-    },
-    body: JSON.stringify({
-      query: fields
-    })
+    }
   };
+
+  if (fields) {
+    baseRequest.body = JSON.stringify({
+      query: fields
+    });
+  }
+
+  return baseRequest;
 }
 
-module.exports = configureFetch;
+module.exports = setFetchRequest;

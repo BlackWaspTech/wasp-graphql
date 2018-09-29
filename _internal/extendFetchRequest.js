@@ -8,7 +8,9 @@
  * @returns {object} - The amended request
  */
 
-function extendConfiguration(original, extension) {
+function extendFetchRequest(original, extension) {
+  // This is the ES5 version of:
+  //    ---> return Object.assign(original, extension)
   for (var prop in extension) {
     original[prop] = extension[prop];
   }
@@ -16,4 +18,4 @@ function extendConfiguration(original, extension) {
   return original;
 }
 
-module.exports = extendConfiguration;
+module.exports = extendFetchRequest;
