@@ -1,43 +1,111 @@
-var assertString = require('./_internal/assertString')
-var configureFetch = require('./_internal/configureFetch')
-var extendConfiguration = require('./_internal/extendConfiguration')
+var setFetchRequest = require('./_internal/setFetchRequest');
+var extendFetchRequest = require('./_internal/extendFetchRequest');
+var setTypeError = require('./_internal/setTypeError');
 
 /**
- * Confirms the given argument is a non-empty string.
+ * Configures and executes a fetch request.
  *
- * @param {string} endpoint - The url target for the fetch request
- * @param {(string|object)} fields - The GraphQL query
- * @param {object} [options] - Additional configuration settings for the fetch request
+ * @param {string} url - The endpoint for the request
+ * @param {string} queryFields - The GraphQL query string
+ * @param {object} [config] - Additional configuration settings for the fetch request
  *
- * @returns {Promise} - Will return a promise object
+ * @returns {Promise} - Will be either a response promise or a rejected promise
  *
  * @example
  * // Returns a promise
- * query('/graphql', { messages {id author description} })
- *  .then(res => res.json())
- *  .then(json => {console.log(json.data.data)})
- *  .catch(err => {console.log(err)})
+ * query('/api/users', '{ users { id username } }').then(res => res.json())
+ * query('/abc/123', { body: JSON.stringify({query: "{ foo { bar} }"})}).then(res => res.json())
+ * query('/myEndpoint', '{ myQuery }', { "headers": { "xHeader": "123"}}).then(res => res.json())
+ *
+ * @example
+ * const graphQL = query('/api/graphql') // preloads the url via currying
+ * graphQL('{ myQuery }').then(res => res.json())
+ *
  */
 
-function query(endpoint, fields, options) {
-  try {
-    // Validate inputs
-    assertString(endpoint, 'endpoint')
-    assertString(fields, 'fields')
-  } catch (err) {
-    // The caller is expecting a promise object
-    return Promise.reject(err)
+function query(url, queryFields, config) {
+  switch (arguments.length) {
+    // If User provided no arguments
+    case 0:
+      return Promise.reject(new TypeError(setTypeError(url, 'url', 'string')));
+
+    // If User provided only a url; this will curry the function so that
+    //    the user can "preload" a url for later use
+    case 1:
+      if (!url)
+        return Promise.reject(
+          new TypeError(setTypeError(url, 'url', 'string'))
+        );
+      return setAndRun;
+
+    // If User provided separate arguments for queryFields & config
+    default:
+      return setAndRun(queryFields, config);
   }
 
-  // Prepare settings for the fetch request
-  var configuration = configureFetch(fields)
+  // --------------------
+  /**
+   * @param {(string | object)} arguments[0] - Can be the query or the request options
+   * @param {object} arguments[1] - The request options
+   * @returns {Promise} - Will return a promise object
+   *
+   */
+  function setAndRun() {
+    var options;
 
-  // Allow the user to add additional props to fetch
-  if (options) {
-    configuration = extendConfiguration(configuration, options)
+    switch (arguments.length) {
+      // If User provided no arguments
+      case 0:
+        return Promise.reject(
+          new TypeError(setTypeError(setAndRun, 'queryFields', 'string'))
+        );
+
+      // If User provided only a fields or an options argument
+      case 1:
+        var param = arguments[0];
+
+        if (!param)
+          return Promise.reject(
+            new TypeError(setTypeError(param, 'queryFields', 'string'))
+          );
+
+        if (typeof param === 'string') {
+          // Configure the fetch request
+          options = setFetchRequest(param);
+        } else if (
+          typeof param === 'object' &&
+          typeof param.body === 'string'
+        ) {
+          // Configure the fetch request; then, extend the configuration
+          //    with additional settings provided by the user
+          options = setFetchRequest();
+          options = extendFetchRequest(options, param);
+        }
+
+      // If User provided both arguments
+      case 2:
+        var queryFields = arguments[0];
+        var config = arguments[1];
+
+        // Check if a query string exists
+        if (
+          typeof queryFields !== 'string' &&
+          (!config || typeof config.body !== 'string')
+        )
+          return Promise.reject(
+            new TypeError(setTypeError(queryFields, 'queryFields', 'string'))
+          );
+
+        // Configure the fetch request; then, extend the configuration
+        //    with additional settings provided by the user
+        options = setFetchRequest(queryFields);
+        options = extendFetchRequest(options, config);
+    }
+
+    // The url is supplied here via closure
+    // The fetch options are built via the above switch case
+    return fetch(url, options);
   }
-
-  return fetch(endpoint, configuration)
 }
 
-module.exports = query
+module.exports = query;

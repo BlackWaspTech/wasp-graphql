@@ -1,6 +1,6 @@
-var extendConfiguration = require('../_internal/extendConfiguration');
+var extendFetchRequest = require('../_internal/extendFetchRequest');
 
-describe('configureFetch.js', function() {
+describe('extendFetchRequest.js', function() {
   var original1 = {
     str: 'hello, world'
   };
@@ -14,6 +14,6 @@ describe('configureFetch.js', function() {
   };
 
   it('generates the expected request object', function() {
-    expect(extendConfiguration(original1, newProps)).toEqual(expectedObject);
+    expect(extendFetchRequest(original1, newProps)).toEqual(expectedObject);
   });
 });

@@ -1,6 +1,6 @@
-var configureFetch = require('../_internal/configureFetch');
+var setFetchRequest = require('../_internal/setFetchRequest');
 
-describe('configureFetch.js', function() {
+describe('setFetchRequest.js', function() {
   var fields = '{ test { hello world } }';
   var expectedObject = {
     method: 'POST',
@@ -14,6 +14,6 @@ describe('configureFetch.js', function() {
   };
 
   it('generates the expected request object', function() {
-    expect(configureFetch(fields)).toEqual(expectedObject);
+    expect(setFetchRequest(fields)).toEqual(expectedObject);
   });
 });
