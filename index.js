@@ -1,8 +1,9 @@
-var query = require('./query');
-var subscribe = require('./subscribe');
+var query = require('./src/query');
+var mutate = require('./src/mutate');
+var subscribe = require('./src/subscribe');
 
 module.exports = {
-  query,
-  mutate,
-  subscribe
+  query: query,
+  mutate: mutate,
+  subscribe: subscribe
 };

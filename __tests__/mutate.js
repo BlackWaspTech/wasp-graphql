@@ -1,8 +1,4 @@
-var mutate = require('../mutate');
-
-// const mockDelete = jest.fn( ('To Kill A Mockingbird') => {
-
-// });
+var mutate = require('../src/mutate');
 
 describe('mutate.js', () => {
   beforeEach(() => {
