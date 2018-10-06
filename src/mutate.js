@@ -1,4 +1,4 @@
-const setMutateRequest = require('./_internal/setMutateRequest');
+const setMutateRequest = require('../_internal/setMutateRequest');
 
 /**
  * Configures a subscription in real time
