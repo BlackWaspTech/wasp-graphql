@@ -1,4 +1,6 @@
-const mutate = require('./mutate');
+'use strict';
+
+var mutate = require('./mutate');
 /**
  * Configures a subscription in real time
  *
