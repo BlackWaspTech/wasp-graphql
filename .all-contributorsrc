@@ -1,0 +1,27 @@
+{
+  "projectName": "wasp-graphql",
+  "projectOwner": "BlackWaspTech <https://github.com/BlackWaspTech>",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "dentemple",
+      "name": "Denny Temple",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/10323609?v=4",
+      "profile": "https://dentemple.com/",
+      "contributions": [
+        "code",
+        "doc",
+        "example",
+        "ideas",
+        "review",
+        "test"
+      ]
+    }
+  ]
+}
