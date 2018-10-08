@@ -10,7 +10,7 @@ v0.2.0 (beta)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Build Status](https://travis-ci.com/dentemple/wasp-graphql.svg?branch=master)](https://travis-ci.com/dentemple/wasp-graphql)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/BlackWaspTech/wasp-graphql/issues)
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 </div>
@@ -145,8 +145,8 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars2.githubusercontent.com/u/10323609?v=4" width="100px;"/><br /><sub><b>Denny Temple</b></sub>](https://dentemple.com/)<br />[💻](https://github.com/BlackWaspTech <https://github.com/BlackWaspTech>/wasp-graphql/commits?author=dentemple "Code") [📖](https://github.com/BlackWaspTech <https://github.com/BlackWaspTech>/wasp-graphql/commits?author=dentemple "Documentation") [💡](#example-dentemple "Examples") [🤔](#ideas-dentemple "Ideas, Planning, & Feedback") [👀](#review-dentemple "Reviewed Pull Requests") [⚠️](https://github.com/BlackWaspTech <https://github.com/BlackWaspTech>/wasp-graphql/commits?author=dentemple "Tests") |
-| :---: |
+| [<img src="https://avatars2.githubusercontent.com/u/10323609?v=4" width="100px;"/><br /><sub><b>Denny Temple</b></sub>](https://dentemple.com/)<br />[💻](https://github.com/BlackWaspTech <https://github.com/BlackWaspTech>/wasp-graphql/commits?author=dentemple "Code") [📖](https://github.com/BlackWaspTech <https://github.com/BlackWaspTech>/wasp-graphql/commits?author=dentemple "Documentation") [💡](#example-dentemple "Examples") [🤔](#ideas-dentemple "Ideas, Planning, & Feedback") [👀](#review-dentemple "Reviewed Pull Requests") [⚠️](https://github.com/BlackWaspTech <https://github.com/BlackWaspTech>/wasp-graphql/commits?author=dentemple "Tests") | [<img src="https://avatars2.githubusercontent.com/u/19364468?v=4" width="100px;"/><br /><sub><b>Reynolds A Colon</b></sub>](http://www.realized-technologies.com)<br />[💻](https://github.com/BlackWaspTech <https://github.com/BlackWaspTech>/wasp-graphql/commits?author=Rcolon100 "Code") [💡](#example-Rcolon100 "Examples") [🤔](#ideas-Rcolon100 "Ideas, Planning, & Feedback") [👀](#review-Rcolon100 "Reviewed Pull Requests") [⚠️](https://github.com/BlackWaspTech <https://github.com/BlackWaspTech>/wasp-graphql/commits?author=Rcolon100 "Tests") |
+| :---: | :---: |
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
