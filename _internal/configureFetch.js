@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Generates the settings necessary for a successful GraphQL request.
  *

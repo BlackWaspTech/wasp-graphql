@@ -9,11 +9,10 @@
 <code>
 v0.2.0 (beta)
 </code>
-<br />
 
 Make your GraphQL queries as intuitive as a Fetch request! No extra dependencies required.
 
-For additional features special to [`redux`](https://redux.js.org/), check out [`redux-wasp`](https://github.com/BlackWaspTech/redux-wasp).
+For additional features special to [Redux](https://redux.js.org/), check out [`redux-wasp`](https://github.com/BlackWaspTech/redux-wasp).
 
 ## Purpose
 
@@ -23,7 +22,7 @@ For additional features special to [`redux`](https://redux.js.org/), check out [
 
 Are you considering an alternative to your REST services? Are you finding the GraphQL ecosystem to be rather cumbersome or dependency-heavy? Planning on building your own GraphQL service but want to be careful about your bundle size?
 
-`wasp-graphql` is here to provide a thin wrapper over the Fetch API. No additional dependencies are included.
+`wasp-graphql` provides a thin wrapper over the Fetch API. Utilize `query` and `mutate` just like you would a `fetch` request. No additional dependencies are included.
 
 Takes as input a `url` and a `configuration` object. Returns a `promise` containing the results of the XmlHttpRequest.
 
@@ -48,32 +47,6 @@ There are several ways to include it in your project:
 - [`cross-fetch`](https://github.com/lquixada/cross-fetch)
 - [`node-fetch`](https://github.com/bitinn/node-fetch)
 - etc.
-
-### API
-
-#### `query`: `Promise<Response> query(url, init);`
-
-##### `@param {string} url`
-
-The resource to be targetted by the XmlHttpRequest. Must be a string.
-
-##### `@param {(string|Object)} init`
-
-Can be the query string or a full configuration object.
-
-If the user provides a configuration object, they must also include the query string either as a `.fields` property (standard) or on the `.body` property ([JSON parsable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)).
-
-#### `mutate`: `Promise<Response> mutate(url, init);`
-
-##### `@param {string} url`
-
-The resource to be targetted by the XmlHttpRequest. Must be a string.
-
-##### `@param {(string|Object)} init`
-
-Can be the mutation string or a full configuration object.
-
-If the user provides a configuration object, they must also include the mutation string either as a `.fields` property (standard) or on the `.body` property ([JSON parsable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)).
 
 ### Examples
 
@@ -101,7 +74,9 @@ const config = {
   cache: 'no-cache'
 };
 query('/myurl', config).then(res => res.json());
+```
 
+```js
 /*
   Examples for syntax that may error
 */
@@ -130,6 +105,32 @@ query('not a real endpoint', '{ stuff }').catch(err => console.log(err));
 //      then the server won't be able to do anything with it
 query('/foo', 'definitely not a query string').catch(err => console.log(err));
 ```
+
+## API
+
+### **query**: `Promise<Response> query(url, init);`
+
+- 1st Argument: `@param {string} url`
+
+The resource to be targetted by the XmlHttpRequest. Must be a string.
+
+- 2nd Argument: `@param {(string|Object)} init`
+
+Can be the query string or a full configuration object.
+
+If the user provides a configuration object, they must also include the query string either as a `.fields` property (standard) or on the `.body` property ([JSON parsable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)).
+
+### **mutate**: `Promise<Response> mutate(url, init);`
+
+- 1st Argument: `@param {string} url`
+
+The resource to be targetted by the XmlHttpRequest. Must be a string.
+
+- 2nd Argument: `@param {(string|Object)} init`
+
+Can be the mutation string or a full configuration object.
+
+If the user provides a configuration object, they must also include the mutation string either as a `.fields` property (standard) or on the `.body` property ([JSON parsable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)).
 
 ---
 
