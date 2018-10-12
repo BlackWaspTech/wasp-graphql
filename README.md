@@ -6,41 +6,42 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-<code>
-v0.2.0 (beta)
-</code>
+> **v0.2.0 (beta)**
 
-Make your GraphQL queries as intuitive as a Fetch request! No extra dependencies required.
+Execute a GraphQL query exactly like you would a `fetch` request. No dependencies included.
 
-For additional features special to [Redux](https://redux.js.org/), check out [`redux-wasp`](https://github.com/BlackWaspTech/redux-wasp).
+```js
+// fetch
+fetch('/my/url/endpoint', { body: JSON.stringify({ query: '{ foo bar }' }) }); // returns a Promise
 
-## Purpose
+// query
+import { query } from 'wasp-graphql';
+query('/my/url/endpoint', { body: JSON.stringify({ query: '{ foo bar' }) }); // returns a Promise
+```
 
-[Fetch - Web APIs](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+Takes a `url` and an `init` object as input. Returns a Promise containing the results of the request.
 
-[GraphQL - A query language for your API](https://graphql.org/)
+**For additional features unique to [Redux](https://redux.js.org/), check out [`redux-wasp`](https://github.com/BlackWaspTech/redux-wasp) and [`redux-wasp-apollo`](https://github.com/BlackWaspTech/redux-wasp-apollo).**
 
-Are you considering an alternative to your REST services? Are you finding the GraphQL ecosystem to be rather cumbersome or dependency-heavy? Planning on building your own GraphQL service but want to be careful about your bundle size?
+**For a live, full-stack application showcasing this library in action, [go here](https://github.com/BlackWaspTech/the-buzz).**
 
-`wasp-graphql` provides a thin wrapper over the Fetch API. Utilize `query` and `mutate` just like you would a `fetch` request. No additional dependencies are included.
+## Installation
 
-Takes as input a `url` and a `configuration` object. Returns a `promise` containing the results of the XmlHttpRequest.
+**Install via npm:**
+
+```js
+npm install --save wasp-graphql
+```
+
+**Install via yarn:**
+
+```js
+yarn add wasp-graphql
+```
 
 Requires `fetch` to be in scope.
 
-## Usage
-
-[How to query a GraphQL server.](https://graphql.org/learn/queries/)
-
-### Installation
-
-- via npm: `npm install --save wasp-graphql`
-
-- via yarn: `yarn add wasp-graphql`
-
-#### Required: `fetch`
-
-There are several ways to include it in your project:
+### Ways to include `fetch`
 
 - Modern browsers ([Can I Use It?](https://caniuse.com/#search=fetch))
 - [`what-wg-fetch`/ Window.Fetch polyfill](https://github.com/github/fetch)
@@ -48,89 +49,243 @@ There are several ways to include it in your project:
 - [`node-fetch`](https://github.com/bitinn/node-fetch)
 - etc.
 
-### Examples
+## How It Works
+
+[How to query a GraphQL server.](https://graphql.org/learn/queries/)
+
+Write a basic string to request [specific fields](https://graphql.org/learn/queries/#fields) from a GraphQL endpoint.
+
+Given an example string:
 
 ```js
-/*
-  Examples for syntax that may succeed
-*/
-// With Query String
-query('/foo/bar', '{foo { bar }}').then(res => res.json());
-
-// With Query String
-query('/myendpoint', 'query myQuery { field1 }').then(res => res.json());
-
-// With Fields property
-query('/myurl', { fields: '{foo { bar }}' }).then(res => res.json());
-
-// With Body property
-query('/myurl', { body: JSON.stringify({ fields: '{foo bar}' }) }).then(res =>
-  res.json()
-);
-
-// With Fields + Custom properties
-const config = {
-  fields: '{foo bar}',
-  cache: 'no-cache'
-};
-query('/myurl', config).then(res => res.json());
+var myFields = `{
+  hero {
+    name
+    friends {
+      name
+    }
+  }
+}`;
 ```
 
+Fields can be passed alone as the second argument...
+
 ```js
-/*
-  Examples for syntax that may error
-*/
+import { query } from 'wasp-graphql';
+query('/my/url/endpoint', myFields);
+```
+
+Or as a `fields` property on the init/configuration object...
+
+```js
+import { query } from 'wasp-graphql';
+
+query('/my/url/endpoint', { fields: myFields });
+// Any `fetch` init property can be included as well
+query('/my/url/endpoint', { fields: myFields, mode: 'no-cors' });
+```
+
+Or as part of a fully customized `body` property (ADVANCED).
+
+```js
+import { query } from 'wasp-graphql';
+
+// Remember that `body` must be a JSON parsable string. Also, many GQL
+//    servers will expect fields to be sent under a `body.query` property.
+//    GQL variables can be sent under `body.variables`.
+const init = {
+  body: JSON.stringify({
+    query: myFields,
+    variables: '{ "name": "Batman" }'
+  }),
+  credentials: 'include',
+  mode: 'same-origin'
+};
+query('/my/url/endpoint', init);
+```
+
+Then, you can unpack the results of query with `.json()`:
+
+```js
+import { query } from 'wasp-graphql';
+
+query('/my/url/endpoint', init)
+  .then(response => {
+    console.log(response.json()); // my data
+  })
+  .catch(error => {
+    console.log(error); // my error
+  });
+```
+
+[As a thin wrapper over the Fetch API, anything that applies to `fetch` will also apply to `query` as well.](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+
+### Examples of good SYNTAX
+
+```js
+import { query } from 'wasp-graphql'
+
+// fields as a second argument
+query('/foo/bar', '{foo { bar baz }}')  // good
+
+// extended fields as a second argument
+query('/myendpoint', 'query myQuery { field1 field2 { subfield1 } }')  // good
+
+// with a fields as a property and the default settings
+query('/myurl', { fields: '{foo { bar }}' })  // good
+
+// with a fields as a property and custom fetch options
+const config = {
+  fields: 'query FooBarBaz {foo bar baz}',
+  cache: 'no-cache',
+  mode: "no-cors"
+}
+query('/myurl', config)  // good
+
+// Remember that `body` must be a JSON parsable string. Also, many GQL
+//    servers will expect fields to be sent under a `body.query` property.
+//    GQL variables can be sent under `body.variables`.
+const init = {
+  body: JSON.stringify({
+    query: myFields,
+    variables: '{ "name": "Batman" }'
+  }),
+  credentials: 'include',
+  mode: 'same-origin'
+}
+query('/my/url/endpoint', init)  // good
+
+// With a fully custom init object.  Body must be a JSON parsable string
+//    with a query property.
+const init = {
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  }
+  body: JSON.stringify({
+    query: myFields,
+    variables: '{ "name": "Batman" }'
+  }),
+  credentials: 'include',
+  mode: 'same-origin'
+}
+query('/my/url/endpoint', init)  // good
+```
+
+Important note: If you add your own headers to the init object, the default headers will be overwritten. If this causes an issue, including these with your custom headers should resolve it:
+
+```js
+{
+  'Content-Type': 'application/json',
+  'Accept': 'application/json'
+}
+```
+
+### Examples of broken SYNTAX
+
+```js
 // No arguments
-query().catch(err => console.log(err));
+query(); // bad
 
 // No second argument
-query('/foo/bar').catch(err => console.log(err));
+query('/foo/bar'); // bad
 
 // An invalid second argument
-query('/foo/bar', []).catch(err => console.log(err));
+query('/foo/bar', []); // bad
 
 // Empty strings
-query('', '').catch(err => console.log(err));
+query('', ''); // bad
 
-// Misconfigured init object (did not add a body property)
-query('/foo', { cache: 'no-cache' }).catch(err => console.log(err));
+// Misconfigured init object (missing a body property)
+query('/foo', { cache: 'no-cache' }); // bad
 
 // Misconfigured body property (did not use JSON.stringify())
-query('/foo', { body: { query: '{foo bar}' } }).catch(err => console.log(err));
+query('/foo', { body: { query: '{foo bar}' } }); // bad
 
 // if the first argument isn't an endpoint, nothing is fetched
-query('not a real endpoint', '{ stuff }').catch(err => console.log(err));
+query('I AM NOT A URL', '{ foo bar baz }'); // bad
 
 // if the second argument is a string, but not a valid query string,
 //      then the server won't be able to do anything with it
-query('/foo', 'definitely not a query string').catch(err => console.log(err));
+query('/foo', 'I AM NOT A STRING OF GRAPHQL FIELDS'); // bad
 ```
+
+---
 
 ## API
 
-### **query**: `Promise<Response> query(url, init);`
+### Quick Reference
 
-- 1st Argument: `@param {string} url`
+```js
+import { query, mutate, subscribe } from 'wasp-graphql';
+```
 
-The resource to be targetted by the XmlHttpRequest. Must be a string.
+### `query(url: string, init: string | Object)`
 
-- 2nd Argument: `@param {(string|Object)} init`
+```js
+/**
+ * Provides a thin, GQL-compliant wrapper over the Fetch API.
+ *
+ * SYNTAX: query(url, init)
 
-Can be the query string or a full configuration object.
+ * @param {string} url - The url for the intended resource
+ * @param {(string|Object)} init - Can be a string of fields or a configuration object
+ * @param {string} [init.fields] - GQL fields: Will be added to the body of the request
+ * @param {string} [init.variables] - GQL variables: Will be added to the body of the request
+ * // For additional valid arguments, see the Fetch API:
+ * // https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch
+ *
+ * Default init properties
+ * @param {string} [init.method='POST']
+ * @param {Object} [init.headers={ 'Content-Type': 'application/json', 'Accept': 'application/json' }]
+ *
+ * @returns {Promise}
+ */
 
-If the user provides a configuration object, they must also include the query string either as a `.fields` property (standard) or on the `.body` property ([JSON parsable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)).
+import { query } from 'wasp-graphql';
+```
 
-### **mutate**: `Promise<Response> mutate(url, init);`
+### `mutate(url: string, init: string | Object)`
 
-- 1st Argument: `@param {string} url`
+```js
+/**
+ * Provides a thin, graphql-compliant wrapper over the Fetch API.
+ *
+ * SYNTAX: mutate(url, init)
+ *
+ * @param {string} url - The url for the intended resource
+ * @param {(string|Object)} init - Can be a string of fields or a configuration object
+ * @param {string} [init.fields] - GQL fields: Will be added to the body of the request
+ * @param {string} [init.variables] - GQL variables: Will be added to the body of the request
+ * // For additional valid arguments, see the Fetch API:
+ * // https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch
+ *
+ * Default init properties
+ * @param {string} [init.method='POST']
+ * @param {Object} [init.headers={ 'Content-Type': 'application/json', 'Accept': 'application/json' }]
+ *
+ * @returns {Promise}
+ */
 
-The resource to be targetted by the XmlHttpRequest. Must be a string.
+import { mutate } from 'wasp-graphql';
+```
 
-- 2nd Argument: `@param {(string|Object)} init`
+### `subscribe(endpoint: string, mutationQuery: string | Object)`
 
-Can be the mutation string or a full configuration object.
+```js
+/**
+ * Configures a mutation in real time.
+ *
+ * SYNTAX: subscribe(endpoint, mutationQuery)
+ *
+ * @param {string} endpoint - The endpoint of the resource
+ * @param {(string|Object)} mutationQuery - The query handling mutation data
+ *
+ * @returns {promise} Will return a promise object
+ */
 
-If the user provides a configuration object, they must also include the mutation string either as a `.fields` property (standard) or on the `.body` property ([JSON parsable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)).
+import { subscribe } from 'wasp-graphql';
+```
 
 ---
 
@@ -157,4 +312,4 @@ Read our Code of Conduct [here](CODE-OF-CONDUCT.md).
 
 ## License
 
-Open Sourced under the [MIT License](LICENSE).
+Free and Open Source under the [MIT License](LICENSE).
