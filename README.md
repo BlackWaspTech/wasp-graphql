@@ -120,7 +120,7 @@ query('/my/url/endpoint', init)
 
 [As a thin wrapper over the Fetch API, anything that applies to `fetch` will also apply to `query` as well.](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
 
-### Examples of good SYNTAX
+### Examples of good syntax
 
 ```js
 import { query } from 'wasp-graphql'
@@ -181,7 +181,7 @@ Important note: If you add your own headers to the init object, the default head
 }
 ```
 
-### Examples of broken SYNTAX
+### Examples of broken syntax
 
 ```js
 // No arguments
