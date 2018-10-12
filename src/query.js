@@ -3,19 +3,20 @@
 var configureFetch = require('../_internal/configureFetch');
 
 /**
- * Configures and executes a GraphQL fetch request.
+ * Provides a thin, GQL-compliant wrapper over the Fetch API.
  *
- * // Base
+ * Syntax: query(url, init)
+ *
  * @param {string} url - The url for the intended resource
- * @param {(string|Object)} init - The options object
- * // GraphQL
- * @param {string} [init.fields] - The GraphQL fields for the intended query; either fields or body must be supplied
- * @param {string} [init.body] - The body of the request object; either fields or body must be supplied
- * @param {string} [init.variables]
- * @param {string} [init.method="POST"]
- * @param {(string|Object)} [init.headers={'Content-Type': 'application/json',Accept: 'application/json'}]
- * // For additional valid arguments, see:
+ * @param {(string|Object)} init - Can be a string of fields or a configuration object
+ * @param {string} [init.fields] - GQL fields: Will be added to the body of the request
+ * @param {string} [init.variables] - GQL variables: Will be added to the body of the request
+ * // For additional valid arguments, see the Fetch API:
  * // https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch
+ *
+ * Default init properties
+ * @param {string} [init.method='POST']
+ * @param {Object} [init.headers={ 'Content-Type': 'application/json', 'Accept': 'application/json' }]
  *
  * @returns {Promise}
  */
