@@ -4,7 +4,7 @@ Hello 👋!
 
 Thank you for viewing our Contribution Guide. We're grateful for your help, and we're excited you're here.
 
-Feel free to take a moment to view our [Code of Conduct](CODE-OF-CONDUCT) as well.
+Feel free to take a moment to view our [Code of Conduct](CODE-OF-CONDUCT.md) as well.
 
 ## Primary Goals for `wasp-graphql`
 
@@ -12,7 +12,7 @@ Feel free to take a moment to view our [Code of Conduct](CODE-OF-CONDUCT) as wel
 
 2 - Interoperable: Make it easy for others to extend `wasp-graphql` for their own libraries, and maintain interoperability with as many GraphQL technologies as possible
 
-3 - Easy: Maintain an intuitive, predictable API
+3 - Simple: Maintain an intuitive, predictable API
 
 ## Ways to get involved
 
