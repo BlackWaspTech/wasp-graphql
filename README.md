@@ -217,7 +217,7 @@ query('/foo', 'I AM NOT A STRING OF GRAPHQL FIELDS'); // bad
 ### Quick Reference
 
 ```js
-import { query, mutate, subscribe } from 'wasp-graphql';
+import { query, mutation, subscription } from 'wasp-graphql';
 ```
 
 ### `query(url: string, init: string | Object)`
@@ -245,38 +245,17 @@ import { query, mutate, subscribe } from 'wasp-graphql';
 import { query } from 'wasp-graphql';
 ```
 
-### `mutate(url: string, init: string | Object)`
+### `mutation(url: string, init: string | Object)`
 
-```js
-/**
- * Provides a thin, graphql-compliant wrapper over the Fetch API.
- *
- * SYNTAX: mutate(url, init)
- *
- * @param {string} url - The url for the intended resource
- * @param {(string|Object)} init - Can be a string of fields or a configuration object
- * @param {string} [init.fields] - GQL fields: Will be added to the body of the request
- * @param {string} [init.variables] - GQL variables: Will be added to the body of the request
- * // For additional valid arguments, see the Fetch API:
- * // https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch
- *
- * Default init properties
- * @param {string} [init.method='POST']
- * @param {Object} [init.headers={ 'Content-Type': 'application/json', 'Accept': 'application/json' }]
- *
- * @returns {Promise}
- */
+Alias for `query`.
 
-import { mutate } from 'wasp-graphql';
-```
-
-### `subscribe(endpoint: string, mutationQuery: string | Object)`
+### `subscription(endpoint: string, mutationQuery: string | Object)`
 
 ```js
 /**
  * Configures a mutation in real time.
  *
- * SYNTAX: subscribe(endpoint, mutationQuery)
+ * SYNTAX: subscription(endpoint, mutationQuery)
  *
  * @param {string} endpoint - The endpoint of the resource
  * @param {(string|Object)} mutationQuery - The query handling mutation data
@@ -284,7 +263,7 @@ import { mutate } from 'wasp-graphql';
  * @returns {promise} Will return a promise object
  */
 
-import { subscribe } from 'wasp-graphql';
+import { subscription } from 'wasp-graphql';
 ```
 
 ---

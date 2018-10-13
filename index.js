@@ -1,10 +1,10 @@
 'use strict';
 
 var query = require('./src/query');
-var subscribe = require('./src/subscribe');
+var subscription = require('./src/subscription');
 
 module.exports = {
   query: query,
-  mutate: query,
-  subscribe: subscribe
+  mutation: query,
+  subscription: subscription
 };
