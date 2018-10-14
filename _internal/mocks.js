@@ -9,10 +9,10 @@ const authors = [
 ];
 
 const posts = [
-  { id: 1, authorId: 1, title: 'Introduction to GraphQL', votes: 2 },
-  { id: 2, authorId: 2, title: 'Welcome to This', votes: 3 },
-  { id: 3, authorId: 2, title: 'Advanced This', votes: 1 },
-  { id: 4, authorId: 3, title: 'Will This even work', votes: 7 }
+  { id: 0, authorId: 1, title: 'Introduction to GraphQL', votes: 0 },
+  { id: 1, authorId: 2, title: 'Welcome to This', votes: 0 },
+  { id: 2, authorId: 2, title: 'Advanced This', votes: 5 },
+  { id: 3, authorId: 3, title: 'Will This even work', votes: 3 }
 ];
 
 const data = { authors, posts };

@@ -1,8 +1,8 @@
 'use strict';
 
-const { query } = require('../index.js');
+const { mutation } = require('../index.js');
 
-describe('query', () => {
+describe('mutation', () => {
   describe('unit tests', () => {
     const fields = '{ foo { bar } }';
 
@@ -12,42 +12,42 @@ describe('query', () => {
     });
 
     it('returns a promise on error', () => {
-      return query().catch(e => {
+      return mutation().catch(e => {
         expect(e).toBeTruthy();
       });
     });
 
     it('rejects if the first argument is invalid', () => {
-      return query('').catch(e => {
+      return mutation('').catch(e => {
         expect(e).toBeTruthy();
       });
     });
 
     it('rejects if the second argument is invalid', () => {
-      return query('/foo', '').catch(e => {
+      return mutation('/foo', '').catch(e => {
         expect(e).toBeTruthy();
       });
     });
 
     it('rejects null values', () => {
-      return query('/foo', null).catch(e => {
+      return mutation('/foo', null).catch(e => {
         expect(e).toBeTruthy();
       });
     });
 
     it('rejects arrays', () => {
-      return query('/foo', []).catch(e => {
+      return mutation('/foo', []).catch(e => {
         expect(e).toBeTruthy();
       });
     });
 
     it('can call an endpoint', () => {
-      query('/api/ping', fields);
+      mutation('/api/ping', fields);
 
       expect(fetch).toBeCalled();
     });
 
-    it('can pass a query string as part of a request', () => {
+    it('can pass a mutation string as part of a request', () => {
       const fetchInit = {
         headers: {
           'Content-Type': 'application/json',
@@ -58,30 +58,30 @@ describe('query', () => {
       };
       const url = '/api/ping';
 
-      query(url, fields);
+      mutation(url, fields);
       expect(fetch).toBeCalledWith(url, fetchInit);
     });
 
-    it('responds when receiving a query string', () => {
-      return query('/foo', fields).then(res => {
+    it('responds when receiving a mutation string', () => {
+      return mutation('/foo', fields).then(res => {
         expect(res).toBeTruthy();
       });
     });
 
     it('responds when receiving a fields prop', () => {
-      return query('/foo', { fields }).then(res => {
+      return mutation('/foo', { fields }).then(res => {
         expect(res).toBeTruthy();
       });
     });
 
     it('responds when receiving a body prop', () => {
-      return query('/foo', { body: fields }).then(res => {
+      return mutation('/foo', { body: fields }).then(res => {
         expect(res).toBeTruthy();
       });
     });
 
     it('can call an endpoint and return data', () => {
-      return query('/foo', { fields })
+      return mutation('/foo', { fields })
         .then(res => res.json())
         .then(json => {
           expect(json.data).toBe(42);

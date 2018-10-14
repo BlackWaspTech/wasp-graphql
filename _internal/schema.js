@@ -35,7 +35,6 @@ const typeDefs = `
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
-// This function call adds the mocks to your schema
 addMockFunctionsToSchema({ schema, preserveResolvers: true });
 
 module.exports = schema;

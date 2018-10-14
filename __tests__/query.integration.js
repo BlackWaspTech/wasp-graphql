@@ -4,10 +4,10 @@ const { query } = require('../index.js');
 
 const { graphql } = require('graphql');
 const schema = require('../_internal/schema');
-const getPosts = require('../_internal/mocks').resolvers.Query.posts;
+const mocks = require('../_internal/mocks');
 
 describe('query', () => {
-  describe('matches on resolvers', () => {
+  describe('queries with mock endpoint', () => {
     const fields = `
       query getPosts {
         posts {
@@ -21,6 +21,7 @@ describe('query', () => {
       }
     `;
 
+    const getPosts = mocks.resolvers.Query.posts;
     const posts = getPosts().map(post => {
       // Updating the test results to handle the "authorID" case
       //    When the GraphQL query executes, this gets converted
@@ -35,7 +36,7 @@ describe('query', () => {
       fetch.once(posts);
     });
 
-    it('has the ability to return data', () => {
+    it('can return data', () => {
       return query('any endpoint', 'any string')
         .then(res => res.body)
         .then(body => {
@@ -45,7 +46,7 @@ describe('query', () => {
         });
     });
 
-    it('can reject an invalid GraphQL query', () => {
+    it('can reject an invalid query', () => {
       return query('any endpoint', 'not a query, mate')
         .then(res => {
           expect(fetch).toBeCalled();
@@ -58,7 +59,7 @@ describe('query', () => {
         });
     });
 
-    it('can send a valid GraphQL query', () => {
+    it('can perform a valid query', () => {
       return query('any endpoint', fields)
         .then(res => {
           expect(fetch).toBeCalled();
