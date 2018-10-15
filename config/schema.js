@@ -25,7 +25,7 @@ const typeDefs = `
     author(id: Int!): Author
   }
 
-  # this schema allows the following mutation:
+  # the schema allows the following mutation:
   type Mutation {
     upvotePost (
       postId: Int!

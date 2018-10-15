@@ -1,6 +1,6 @@
 'use strict';
 
-var mutate = require('./query');
+var mutation = require('./query');
 
 /**
  * Configures a mutation in real time.
@@ -11,10 +11,10 @@ var mutate = require('./query');
  * @returns {promise} Will return a promise object
  */
 
-function subscribe(endpoint, mutationQuery) {
-  return mutate.query(endpoint, mutationQuery);
+function subscription(endpoint, mutationQuery) {
+  return mutation.query(endpoint, mutationQuery);
 }
 
 module.exports = {
-  subscribe
+  subscription: subscription
 };

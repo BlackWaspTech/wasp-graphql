@@ -249,23 +249,6 @@ import { query } from 'wasp-graphql';
 
 Alias for `query`.
 
-### `subscription(endpoint: string, mutationQuery: string | Object)`
-
-```js
-/**
- * Configures a mutation in real time.
- *
- * SYNTAX: subscription(endpoint, mutationQuery)
- *
- * @param {string} endpoint - The endpoint of the resource
- * @param {(string|Object)} mutationQuery - The query handling mutation data
- *
- * @returns {promise} Will return a promise object
- */
-
-import { subscription } from 'wasp-graphql';
-```
-
 ---
 
 ## Contributing

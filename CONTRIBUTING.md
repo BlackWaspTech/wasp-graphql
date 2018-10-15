@@ -31,6 +31,8 @@ Feel free to take a moment to view our [Code of Conduct](CODE-OF-CONDUCT.md) as 
 
 All contributions must be offered via [Pull Request](https://help.github.com/articles/about-pull-requests/) and be approved by a maintainer.
 
+Make all pull requests to the `master` branch.
+
 ### Code Style
 
 There's no need to worry about style. [Prettier](https://prettier.io/) has been configured, and it'll auto-format your code as soon as it's committed.
@@ -52,5 +54,7 @@ Available commands:
 - `yarn test:coverage` / `npm run test:coverage` to generate a coverage report
 
 ---
+
+View the [Changelog](CHANGELOG.md)
 
 Return to [README](README.md)

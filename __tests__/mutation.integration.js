@@ -3,8 +3,8 @@
 const { mutation } = require('../index.js');
 
 const { graphql } = require('graphql');
-const schema = require('../_internal/schema');
-const mocks = require('../_internal/mocks');
+const schema = require('../config/schema');
+const mocks = require('../config/mocks');
 
 describe('mutation', () => {
   describe('mutations with mock endpoint', () => {
