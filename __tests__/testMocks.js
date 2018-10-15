@@ -2,8 +2,8 @@
 
 const { graphql } = require('graphql');
 
-const schema = require('../_internal/schema');
-const mocks = require('../_internal/mocks');
+const schema = require('../config/schema');
+const mocks = require('../config/mocks');
 
 describe('mocks', () => {
   test('whether mock queries work as intended', () => {
