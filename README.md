@@ -1,29 +1,37 @@
 # wasp-graphql
 
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![npm](https://img.shields.io/npm/v/wasp-graphql.svg)](https://www.npmjs.com/package/wasp-graphql)
 [![Build Status](https://travis-ci.com/dentemple/wasp-graphql.svg?branch=master)](https://travis-ci.com/dentemple/wasp-graphql)
+[![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/wasp-graphql.svg)](https://www.npmjs.com/package/wasp-graphql) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/BlackWaspTech/wasp-graphql/issues)
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-> **v0.2.0 (beta)**
+[![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/dentemple/wasp-graphql)
 
 Execute a GraphQL query exactly like you would a `fetch` request. No dependencies included.
 
+Takes a `url` and an `init` object as input. Returns a Promise containing the results of the request.
+
 ```js
 // fetch
-fetch('/my/url/endpoint', { body: JSON.stringify({ query: '{ foo bar }' }) }); // returns a Promise
+fetch('/graphql', { body: JSON.stringify({ query: '{ foo { bar baz } }' }) });
 
 // query
 import { query } from 'wasp-graphql';
-query('/my/url/endpoint', { body: JSON.stringify({ query: '{ foo bar' }) }); // returns a Promise
-```
+query('/graphql', { fields: '{ foo { bar baz } }' });
 
-Takes a `url` and an `init` object as input. Returns a Promise containing the results of the request.
+// Logging the results
+fetch(url, init)
+  .then(res => res.json())
+  .then(json => console.log(json));
+query(url, init)
+  .then(res => res.json())
+  .then(json => console.log(json));
+```
 
 **For additional features unique to [Redux](https://redux.js.org/), check out [`redux-wasp`](https://github.com/BlackWaspTech/redux-wasp) and [`redux-wasp-apollo`](https://github.com/BlackWaspTech/redux-wasp-apollo).**
 
-**For a live, full-stack application showcasing this library in action, [go here](https://github.com/BlackWaspTech/the-buzz).**
+**For a live, full-stack application showcasing this library in action, visit [The Buzz](https://github.com/BlackWaspTech/the-buzz).**
 
 ## Installation
 
@@ -39,9 +47,7 @@ npm install --save wasp-graphql
 yarn add wasp-graphql
 ```
 
-Requires `fetch` to be in scope.
-
-### Ways to include `fetch`
+**Requires `fetch` to be in scope.**
 
 - Modern browsers ([Can I Use It?](https://caniuse.com/#search=fetch))
 - [`what-wg-fetch`/ Window.Fetch polyfill](https://github.com/github/fetch)
@@ -49,11 +55,26 @@ Requires `fetch` to be in scope.
 - [`node-fetch`](https://github.com/bitinn/node-fetch)
 - etc.
 
+**Use**
+
+```js
+// ES6 (with Destructuring)
+import { query } from 'wasp-graphql';
+
+// ES6
+import Wasp from 'wasp-graphql';
+const query = Wasp.query;
+
+// ES5
+var Wasp = require('wasp-graphql');
+var query = Wasp.query;
+```
+
 ## How It Works
 
 [How to query a GraphQL server.](https://graphql.org/learn/queries/)
 
-Write a basic string to request [specific fields](https://graphql.org/learn/queries/#fields) from a GraphQL endpoint.
+Write a string to request data (["fields"](https://graphql.org/learn/queries/#fields)) from a GraphQL endpoint.
 
 Given an example string:
 
@@ -68,14 +89,14 @@ var myFields = `{
 }`;
 ```
 
-Fields can be passed alone as the second argument...
+Pass the query string alone as the second argument...
 
 ```js
 import { query } from 'wasp-graphql';
 query('/my/url/endpoint', myFields);
 ```
 
-Or as a `fields` property on the init/configuration object...
+Or as a property called `fields` for the second argument...
 
 ```js
 import { query } from 'wasp-graphql';
@@ -92,14 +113,11 @@ import { query } from 'wasp-graphql';
 
 // Remember that `body` must be a JSON parsable string. Also, many GQL
 //    servers will expect fields to be sent under a `body.query` property.
-//    GQL variables can be sent under `body.variables`.
 const init = {
   body: JSON.stringify({
-    query: myFields,
-    variables: '{ "name": "Batman" }'
+    query: myFields
   }),
-  credentials: 'include',
-  mode: 'same-origin'
+  credentials: 'include'
 };
 query('/my/url/endpoint', init);
 ```
@@ -120,6 +138,48 @@ query('/my/url/endpoint', init)
 
 [As a thin wrapper over the Fetch API, anything that applies to `fetch` will also apply to `query` as well.](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
 
+### Variables
+
+[About dynamic arguments](https://graphql.org/learn/queries/#variables)
+
+GraphQL variables can be passed on as a separate property named `variables`.
+
+```js
+import { query } from 'wasp-graphql';
+
+query(url, { fields: myFields, variables: myVariables });
+```
+
+A longer example:
+
+```js
+import { query } from 'wasp-graphql';
+
+const url = '/api/starwars';
+const fields = `
+  query HeroNameAndFriends($episode: Episode) {
+    hero(episode: $episode) {
+      name
+      friends {
+        name
+      }
+    }
+  }
+`;
+const variables = {
+  episode: 'JEDI'
+};
+
+query(url, { fields, variables })
+  .then(res => res.json())
+  .then(json => {
+    console.log(json);
+  });
+
+// A custom body property can be used as well
+query(url, { body: JSON.stringify({ fields, variables }) }).then(/* ... */);
+```
+
 ### Examples of good SYNTAX
 
 ```js
@@ -138,7 +198,7 @@ query('/myurl', { fields: '{foo { bar }}' })  // good
 const config = {
   fields: 'query FooBarBaz {foo bar baz}',
   cache: 'no-cache',
-  mode: "no-cors"
+  mode: "same-origin"
 }
 query('/myurl', config)  // good
 
@@ -217,7 +277,7 @@ query('/foo', 'I AM NOT A STRING OF GRAPHQL FIELDS'); // bad
 ### Quick Reference
 
 ```js
-import { query, mutation, subscription } from 'wasp-graphql';
+import { query, mutation } from 'wasp-graphql';
 ```
 
 ### `query(url: string, init: string | Object)`
@@ -231,7 +291,7 @@ import { query, mutation, subscription } from 'wasp-graphql';
  * @param {string} url - The url for the intended resource
  * @param {(string|Object)} init - Can be a string of fields or a configuration object
  * @param {string} [init.fields] - GQL fields: Will be added to the body of the request
- * @param {string} [init.variables] - GQL variables: Will be added to the body of the request
+ * @param {Object} [init.variables] - GQL variables: Will be added to the body of the request
  * // For additional valid arguments, see the Fetch API:
  * // https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch
  *
@@ -250,6 +310,10 @@ import { query } from 'wasp-graphql';
 Alias for `query`.
 
 ---
+
+## Changelog
+
+View it [here](CHANGELOG.md)
 
 ## Contributing
 
