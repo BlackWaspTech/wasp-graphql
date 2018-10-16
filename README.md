@@ -6,7 +6,7 @@
 
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/BlackWaspTech/wasp-graphql/issues)
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
-[![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/dentemple/wasp-graphql)
+[![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/BlackWaspTech/wasp-graphql)
 
 Execute a GraphQL query exactly like you would a `fetch` request. No dependencies included.
 
