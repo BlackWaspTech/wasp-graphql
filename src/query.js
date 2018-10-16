@@ -10,7 +10,7 @@ var configureFetch = require('../_internal/configureFetch');
  * @param {string} url - The url for the intended resource
  * @param {(string|Object)} init - Can be a string of fields or a configuration object
  * @param {string} [init.fields] - GQL fields: Will be added to the body of the request
- * @param {string} [init.variables] - GQL variables: Will be added to the body of the request
+ * @param {Object} [init.variables] - GQL variables: Will be added to the body of the request
  * // For additional valid arguments, see the Fetch API:
  * // https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch
  *

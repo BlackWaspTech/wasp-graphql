@@ -47,21 +47,6 @@ describe('query', () => {
       expect(fetch).toBeCalled();
     });
 
-    it('can pass a query string as part of a request', () => {
-      const fetchInit = {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json'
-        },
-        method: 'POST',
-        body: JSON.stringify({ query: fields })
-      };
-      const url = '/api/ping';
-
-      query(url, fields);
-      expect(fetch).toBeCalledWith(url, fetchInit);
-    });
-
     it('responds when receiving a query string', () => {
       return query('/foo', fields).then(res => {
         expect(res).toBeTruthy();
@@ -86,6 +71,48 @@ describe('query', () => {
         .then(json => {
           expect(json.data).toBe(42);
         });
+    });
+
+    it('can pass a query string as part of a request', () => {
+      const fetchInit = {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({ query: fields })
+      };
+      const url = '/api/ping';
+
+      query(url, fields);
+      expect(fetch).toBeCalledWith(url, fetchInit);
+
+      const body = fetch.mock.calls[0][1].body;
+      expect(body).toMatch(/query/);
+      expect(body).toMatch(/foo/);
+    });
+
+    it('can pass in variables as part of a request', () => {
+      const fetchInit = {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({
+          query: fields,
+          variables: { str: 'Hello, world!' }
+        })
+      };
+      const url = '/api/ping';
+
+      query(url, { fields, variables: { str: 'Hello, world!' } });
+      expect(fetch).toBeCalledWith(url, fetchInit);
+
+      const body = fetch.mock.calls[0][1].body;
+      expect(body).toMatch(/variables/);
+      expect(body).toMatch(/str/);
+      expect(body).toMatch(/Hello, world!/);
     });
   });
 });
