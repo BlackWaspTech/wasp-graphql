@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.1 beta
+
+- Updated documentation and tests
+
 ## v0.2.0 beta
 
 - Significant revision of `query` and `mutate`
