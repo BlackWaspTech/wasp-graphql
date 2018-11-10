@@ -14,19 +14,19 @@ Takes a `url` and an `init` object as input. Returns a Promise containing the re
 
 ```js
 // fetch
-fetch('/graphql', { body: JSON.stringify({ query: '{ foo { bar baz } }' }) });
+fetch('/graphql', { body: JSON.stringify({ query: '{ foo { bar baz } }' }) })
 
 // query
-import { query } from 'wasp-graphql';
-query('/graphql', { fields: '{ foo { bar baz } }' });
+import { query } from 'wasp-graphql'
+query('/graphql', { fields: '{ foo { bar baz } }' })
 
 // Logging the results
 fetch(url, init)
   .then(res => res.json())
-  .then(json => console.log(json));
+  .then(json => console.log(json))
 query(url, init)
   .then(res => res.json())
-  .then(json => console.log(json));
+  .then(json => console.log(json))
 ```
 
 **For additional features unique to [Redux](https://redux.js.org/), check out [`redux-wasp`](https://github.com/BlackWaspTech/redux-wasp) and [`redux-wasp-apollo`](https://github.com/BlackWaspTech/redux-wasp-apollo).**
@@ -59,15 +59,15 @@ yarn add wasp-graphql
 
 ```js
 // ES6 (with Destructuring)
-import { query } from 'wasp-graphql';
+import { query } from 'wasp-graphql'
 
 // ES6
-import Wasp from 'wasp-graphql';
-const query = Wasp.query;
+import Wasp from 'wasp-graphql'
+const query = Wasp.query
 
 // ES5
-var Wasp = require('wasp-graphql');
-var query = Wasp.query;
+var Wasp = require('wasp-graphql')
+var query = Wasp.query
 ```
 
 ## How It Works
@@ -86,30 +86,30 @@ var myFields = `{
       name
     }
   }
-}`;
+}`
 ```
 
 Pass the query string alone as the second argument...
 
 ```js
-import { query } from 'wasp-graphql';
-query('/my/url/endpoint', myFields);
+import { query } from 'wasp-graphql'
+query('/my/url/endpoint', myFields)
 ```
 
 Or as a property called `fields` for the second argument...
 
 ```js
-import { query } from 'wasp-graphql';
+import { query } from 'wasp-graphql'
 
-query('/my/url/endpoint', { fields: myFields });
+query('/my/url/endpoint', { fields: myFields })
 // Any `fetch` init property can be included as well
-query('/my/url/endpoint', { fields: myFields, mode: 'no-cors' });
+query('/my/url/endpoint', { fields: myFields, mode: 'no-cors' })
 ```
 
 Or as part of a fully customized `body` property (ADVANCED).
 
 ```js
-import { query } from 'wasp-graphql';
+import { query } from 'wasp-graphql'
 
 // Remember that `body` must be a JSON parsable string. Also, many GQL
 //    servers will expect fields to be sent under a `body.query` property.
@@ -118,22 +118,22 @@ const init = {
     query: myFields
   }),
   credentials: 'include'
-};
-query('/my/url/endpoint', init);
+}
+query('/my/url/endpoint', init)
 ```
 
 Then, you can unpack the results of query with `.json()`:
 
 ```js
-import { query } from 'wasp-graphql';
+import { query } from 'wasp-graphql'
 
 query('/my/url/endpoint', init)
   .then(response => {
-    console.log(response.json()); // my data
+    console.log(response.json()) // my data
   })
   .catch(error => {
-    console.log(error); // my error
-  });
+    console.log(error) // my error
+  })
 ```
 
 [As a thin wrapper over the Fetch API, anything that applies to `fetch` will also apply to `query` as well.](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
@@ -145,17 +145,17 @@ query('/my/url/endpoint', init)
 GraphQL variables can be passed on as a separate property named `variables`.
 
 ```js
-import { query } from 'wasp-graphql';
+import { query } from 'wasp-graphql'
 
-query(url, { fields: myFields, variables: myVariables });
+query(url, { fields: myFields, variables: myVariables })
 ```
 
 A longer example:
 
 ```js
-import { query } from 'wasp-graphql';
+import { query } from 'wasp-graphql'
 
-const url = '/api/starwars';
+const url = '/api/starwars'
 const fields = `
   query HeroNameAndFriends($episode: Episode) {
     hero(episode: $episode) {
@@ -165,19 +165,19 @@ const fields = `
       }
     }
   }
-`;
+`
 const variables = {
   episode: 'JEDI'
-};
+}
 
 query(url, { fields, variables })
   .then(res => res.json())
   .then(json => {
-    console.log(json);
-  });
+    console.log(json)
+  })
 
 // A custom body property can be used as well
-query(url, { body: JSON.stringify({ fields, variables }) }).then(/* ... */);
+query(url, { body: JSON.stringify({ fields, variables }) }).then(/* ... */)
 ```
 
 ### Examples of good SYNTAX
@@ -245,29 +245,29 @@ Important note: If you add your own headers to the init object, the default head
 
 ```js
 // No arguments
-query(); // bad
+query() // bad
 
 // No second argument
-query('/foo/bar'); // bad
+query('/foo/bar') // bad
 
 // An invalid second argument
-query('/foo/bar', []); // bad
+query('/foo/bar', []) // bad
 
 // Empty strings
-query('', ''); // bad
+query('', '') // bad
 
 // Misconfigured init object (missing a body property)
-query('/foo', { cache: 'no-cache' }); // bad
+query('/foo', { cache: 'no-cache' }) // bad
 
 // Misconfigured body property (did not use JSON.stringify())
-query('/foo', { body: { query: '{foo bar}' } }); // bad
+query('/foo', { body: { query: '{foo bar}' } }) // bad
 
 // if the first argument isn't an endpoint, nothing is fetched
-query('I AM NOT A URL', '{ foo bar baz }'); // bad
+query('I AM NOT A URL', '{ foo bar baz }') // bad
 
 // if the second argument is a string, but not a valid query string,
 //      then the server won't be able to do anything with it
-query('/foo', 'I AM NOT A STRING OF GRAPHQL FIELDS'); // bad
+query('/foo', 'I AM NOT A STRING OF GRAPHQL FIELDS') // bad
 ```
 
 ---
@@ -277,7 +277,7 @@ query('/foo', 'I AM NOT A STRING OF GRAPHQL FIELDS'); // bad
 ### Quick Reference
 
 ```js
-import { query, mutation } from 'wasp-graphql';
+import { query, mutation } from 'wasp-graphql'
 ```
 
 ### `query(url: string, init: string | Object)`
@@ -302,7 +302,7 @@ import { query, mutation } from 'wasp-graphql';
  * @returns {Promise}
  */
 
-import { query } from 'wasp-graphql';
+import { query } from 'wasp-graphql'
 ```
 
 ### `mutation(url: string, init: string | Object)`
@@ -321,7 +321,7 @@ View it [here](CHANGELOG.md)
 
 ## Contributors
 
-Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
+Thanks goes to these wonderful people:
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
