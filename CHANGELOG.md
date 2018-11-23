@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.2.3 beta
+
+- Updated `jest` to resolve potential security issue
+  - Affects dev only
+
 ## v0.2.2 beta
 
 - Updated dev packages
