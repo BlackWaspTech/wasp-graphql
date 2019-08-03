@@ -1,6 +1,6 @@
 {
   "name": "wasp-graphql",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Making GraphQL queries as easy as a Fetch request",
   "main": "dist/bundle.js",
   "author": "BlackWaspTech (https://github.com/BlackWaspTech)",
@@ -55,6 +55,8 @@
     "lint-staged": "^8.0.4",
     "lodash.filter": "^4.6.0",
     "lodash.find": "^4.6.0",
-    "prettier": "^1.15.2"
-  }
+    "prettier": "^1.15.2",
+    "rollup": "^1.18.0"
+  },
+  "gitHead": "0566193e3d038241b7f0832f6dd1c88bf2706a80"
 }

@@ -1,6 +1,6 @@
 {
   "name": "redux-wasp",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Utilize cutting-edge GraphQL APIs without rebuilding your front-end",
   "main": "dist/bundle.js",
   "author": "BlackWaspTech (https://github.com/BlackWaspTech)",
@@ -44,7 +44,7 @@
     ]
   },
   "dependencies": {
-    "wasp-graphql": "^0.3.1"
+    "wasp-graphql": "^0.3.2"
   },
   "devDependencies": {
     "all-contributors-cli": "^5.4.1",
@@ -56,6 +56,8 @@
     "lint-staged": "^8.0.4",
     "lodash.filter": "^4.6.0",
     "lodash.find": "^4.6.0",
-    "prettier": "^1.15.2"
-  }
+    "prettier": "^1.15.2",
+    "rollup": "^1.18.0"
+  },
+  "gitHead": "0566193e3d038241b7f0832f6dd1c88bf2706a80"
 }
