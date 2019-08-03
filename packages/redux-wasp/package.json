@@ -1,6 +1,6 @@
 {
   "name": "redux-wasp",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Utilize cutting-edge GraphQL APIs without rebuilding your front-end",
   "main": "index.js",
   "author": "BlackWaspTech (https://github.com/BlackWaspTech)",
@@ -42,7 +42,7 @@
     ]
   },
   "dependencies": {
-    "wasp-graphql": "^0.3.0"
+    "wasp-graphql": "^0.3.1"
   },
   "devDependencies": {
     "all-contributors-cli": "^5.4.1",
