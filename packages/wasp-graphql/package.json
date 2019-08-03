@@ -1,6 +1,6 @@
 {
   "name": "wasp-graphql",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Making GraphQL queries as easy as a Fetch request",
   "main": "index.js",
   "author": "BlackWaspTech (https://github.com/BlackWaspTech)",
@@ -48,7 +48,7 @@
     "graphql": "^14.0.2",
     "graphql-tools": "^4.0.3",
     "husky": "^1.1.3",
-    "jest": "^23.6.0",
+    "jest": "^24.8.0",
     "jest-fetch-mock": "^1.6.6",
     "lint-staged": "^8.0.4",
     "lodash.filter": "^4.6.0",
