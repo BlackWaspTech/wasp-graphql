@@ -2,7 +2,7 @@
   "name": "wasp-graphql",
   "version": "0.3.1",
   "description": "Making GraphQL queries as easy as a Fetch request",
-  "main": "index.js",
+  "main": "dist/bundle.js",
   "author": "BlackWaspTech (https://github.com/BlackWaspTech)",
   "license": "MIT",
   "homepage": "https://github.com/BlackWaspTech/wasp-graphql#readme",
@@ -24,7 +24,9 @@
     "test:watch": "jest -i --watch",
     "test:coverage": "jest --coverage",
     "contributors:add": "all-contributors add",
-    "contributors:generate": "all-contributors generate"
+    "contributors:generate": "all-contributors generate",
+    "build": "rollup --c rollup.config.js",
+    "prepublish": "npm run build"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/config/setupTests.js",
