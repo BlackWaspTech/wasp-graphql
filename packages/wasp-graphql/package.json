@@ -3,6 +3,7 @@
   "version": "0.3.2",
   "description": "Making GraphQL queries as easy as a Fetch request",
   "main": "dist/bundle.js",
+  "files": ["dist"],
   "author": "BlackWaspTech (https://github.com/BlackWaspTech)",
   "license": "MIT",
   "homepage": "https://github.com/BlackWaspTech/wasp-graphql#readme",

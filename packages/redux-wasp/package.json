@@ -3,6 +3,9 @@
   "version": "0.3.2",
   "description": "Utilize cutting-edge GraphQL APIs without rebuilding your front-end",
   "main": "dist/bundle.js",
+  "files": [
+    "dist"
+  ],
   "author": "BlackWaspTech (https://github.com/BlackWaspTech)",
   "license": "MIT",
   "homepage": "https://github.com/BlackWaspTech/redux-wasp#readme",

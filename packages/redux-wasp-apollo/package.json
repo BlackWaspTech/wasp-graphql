@@ -3,6 +3,7 @@
   "version": "0.3.2",
   "description": "Provides integration between redux-wasp and apollo-link-state",
   "main": "dist/bundle.js",
+  "files": ["dist"],
   "author": "BlackWaspTech (https://github.com/BlackWaspTech)",
   "license": "MIT",
   "homepage": "https://github.com/BlackWaspTech/redux-wasp-apollo#readme",
