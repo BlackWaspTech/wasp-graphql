@@ -10,7 +10,6 @@
  * 
  */
 
-
 const WaspLinkMutate = (props, query, variables, refetch) => {
   // Check for variables
   if(!variables) {
