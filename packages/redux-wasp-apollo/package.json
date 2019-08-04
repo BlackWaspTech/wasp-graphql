@@ -25,7 +25,7 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup --c rollup.config.js",
+    "build": "rollup --c rollup.config.js --compact",
     "prepublish": "npm run build"
   },
   "husky": {
@@ -43,7 +43,8 @@
     "husky": "^1.0.0",
     "lint-staged": "^7.3.0",
     "prettier": "^1.14.3",
-    "rollup": "^1.18.0"
+    "rollup": "^1.18.0",
+    "rollup-plugin-node-resolve": "^5.2.0"
   },
   "gitHead": "0566193e3d038241b7f0832f6dd1c88bf2706a80"
 }
