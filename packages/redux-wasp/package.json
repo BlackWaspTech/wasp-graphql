@@ -1,6 +1,6 @@
 {
   "name": "redux-wasp",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "Utilize cutting-edge GraphQL APIs without rebuilding your front-end",
   "main": "dist/bundle.js",
   "files": [
@@ -47,7 +47,7 @@
     ]
   },
   "dependencies": {
-    "wasp-graphql": "^0.3.5"
+    "wasp-graphql": "^0.3.6"
   },
   "devDependencies": {
     "all-contributors-cli": "^5.4.1",

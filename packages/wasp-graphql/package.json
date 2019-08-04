@@ -1,6 +1,6 @@
 {
   "name": "wasp-graphql",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "Making GraphQL queries as easy as a Fetch request",
   "main": "dist/bundle.js",
   "files": [
