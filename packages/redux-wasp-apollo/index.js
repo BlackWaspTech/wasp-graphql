@@ -1,5 +1,9 @@
-const subscribe = require('./subscribe');
+'use strict';
+
+var query = require('./src/query');
+var mutate = require('./src/mutate');
 
 module.exports = {
-  subscribe
+  query: query,
+  mutate: mutate
 };
