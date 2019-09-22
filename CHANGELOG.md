@@ -1,9 +1,14 @@
 # Changelog
 
+## v0.3.x beta
+
+Integrate all related libraries into a mono-repo. Includes general cleanup and refactoring.
+
 ## v0.2.3 beta
 
 - Updated `jest` to resolve potential security issue
   - Affects dev only
+- Correctly placed `wasp-graphql` in dependencies instead of devDependencies
 
 ## v0.2.2 beta
 
@@ -16,15 +21,19 @@
 - Minor update to Travis build (now caches node_modules)
 - Added slight clarification to LICENSE (still MIT)
 - Removed unnecessary url from README
+- Fixed accidental usage of ES6 syntax
 
 ## v0.2.1 beta
 
+- Hotfix; previous version was published without a necessary `pre-release` update
 - Updated documentation and tests
 
 ## v0.2.0 beta
 
 - Significant revision of `query` and `mutate`
+- Significant revision of redux-wasp
 - Removed `subscription`; waiting on further testing
+- Imports from `wasp-graphql` package as opposed to internal code
 
 ## v0.1.0 beta
 

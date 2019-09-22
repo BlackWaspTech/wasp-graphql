@@ -1,13 +1,6 @@
 # redux-wasp
 
 [![npm](https://img.shields.io/npm/v/redux-wasp.svg)](https://www.npmjs.com/package/redux-wasp)
-[![Build Status](https://travis-ci.org/BlackWaspTech/redux-wasp.svg?branch=master)](https://travis-ci.org/BlackWaspTech/redux-wasp)
-[![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/redux-wasp.svg)](https://www.npmjs.com/package/redux-wasp)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/BlackWaspTech/redux-wasp/issues)
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Utilize cutting-edge GraphQL APIs within an existing Redux codebase.
 
@@ -16,17 +9,11 @@ Perform GraphQL queries exactly like you would a `fetch` request.
 Takes a `url` and an `init` object as input. Returns a Promise containing the results of the request.
 
 ```js
-// fetch
-fetch('/graphql', { body: JSON.stringify({ query: '{ foo { bar baz } }' }) });
-
-// query
 import { query } from 'redux-wasp';
+
 query('/graphql', { fields: '{ foo { bar baz } }' });
 
 // Logging the results
-fetch(url, init)
-  .then(res => res.json())
-  .then(json => console.log(json));
 query(url, init)
   .then(res => res.json())
   .then(json => console.log(json));
@@ -38,10 +25,12 @@ Also automates dispatching the results of the above query to the Redux Store (OP
 // Apply the reducer
 // reducers.js
 import { waspGraphqlReducer } from 'redux-wasp';
+
 const reducers = combineReducers({ graphql: waspGraphqlReducer });
 
 // Configure the middleware
 import { createWaspMiddleware } from 'redux-wasp';
+
 const waspMiddleware = createWaspMiddleware();
 const store = createStore(
   reducers,
@@ -78,14 +67,8 @@ New properties will now be added to your redux store. Every `query` and `mutatio
 
 **Install via npm:**
 
-```js
-npm install --save redux-wasp
-```
-
-**Install via yarn:**
-
-```js
-yarn add redux-wasp
+```bash
+$ npm install --save redux-wasp
 ```
 
 `redux-wasp` is a micro-library. Only the base methods included in [`wasp-graphql`](https://github.com/BlackWaspTech/wasp-graphql) will be added as a dependency.
@@ -490,29 +473,10 @@ import { clearGraphqlData } from 'redux-wasp';
 
 ---
 
-## Changelog
-
-View it [here](CHANGELOG.md)
-
-## Contributing
-
-[Read more](CONTRIBUTING.md)
-
-## Contributors
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore -->
-| [<img src="https://avatars2.githubusercontent.com/u/10323609?v=4" width="100px;"/><br /><sub><b>Denny Temple</b></sub>](https://dentemple.com/)<br /> | [<img src="https://avatars2.githubusercontent.com/u/19364468?v=4" width="100px;"/><br /><sub><b>Reynolds A Colon</b></sub>](http://www.realized-technologies.com)<br /> | [<img src="https://avatars2.githubusercontent.com/u/23730068?v=4" width="100px;"/><br /><sub><b>kamo31</b></sub>](https://github.com/kamo31)<br /> | [<img src="https://avatars2.githubusercontent.com/u/19240166?v=4" width="100px;"/><br /><sub><b>marceca</b></sub>](https://github.com/marceca)<br /> |
-| :---: | :---: | :---: | :---: |
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
-
-## Code of Conduct
-
-Read our Code of Conduct [here](CODE-OF-CONDUCT.md).
-
 ## License
 
 Free and Open Source under the [MIT License](LICENSE).
+
+---
+
+[Navigate to top](../../README.md)
