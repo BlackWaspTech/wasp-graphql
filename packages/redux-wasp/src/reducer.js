@@ -29,8 +29,8 @@ if (typeof Object.assign != 'function') {
     configurable: true
   });
 }
-// --------------------
 
+// --------------------
 function reducer(state, action) {
   state = state || initialState;
 

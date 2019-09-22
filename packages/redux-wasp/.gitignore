@@ -71,3 +71,7 @@ typings/
 
 # Serverless directories
 .serverless
+
+# OS Generated Files
+.DS_Store
+.DS_Store?

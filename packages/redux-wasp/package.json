@@ -1,8 +1,11 @@
 {
   "name": "redux-wasp",
-  "version": "0.3.1",
+  "version": "0.3.6",
   "description": "Utilize cutting-edge GraphQL APIs without rebuilding your front-end",
-  "main": "index.js",
+  "main": "dist/bundle.js",
+  "files": [
+    "dist"
+  ],
   "author": "BlackWaspTech (https://github.com/BlackWaspTech)",
   "license": "MIT",
   "homepage": "https://github.com/BlackWaspTech/redux-wasp#readme",
@@ -22,7 +25,9 @@
     "test:watch": "jest -i --watch",
     "test:coverage": "jest --coverage",
     "contributors:add": "all-contributors add",
-    "contributors:generate": "all-contributors generate"
+    "contributors:generate": "all-contributors generate",
+    "build": "rollup --c rollup.config.js",
+    "prepublish": "npm run build"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/config/setupTests.js",
@@ -42,7 +47,7 @@
     ]
   },
   "dependencies": {
-    "wasp-graphql": "^0.3.1"
+    "wasp-graphql": "^0.3.6"
   },
   "devDependencies": {
     "all-contributors-cli": "^5.4.1",
@@ -54,6 +59,8 @@
     "lint-staged": "^8.0.4",
     "lodash.filter": "^4.6.0",
     "lodash.find": "^4.6.0",
-    "prettier": "^1.15.2"
-  }
+    "prettier": "^1.15.2",
+    "rollup": "^1.18.0"
+  },
+  "gitHead": "0566193e3d038241b7f0832f6dd1c88bf2706a80"
 }
